@@ -15,7 +15,6 @@ export default function ProductDetailsPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log([...Array(20).keys()], parseInt("4.4"));
     getProduct();
   }, []);
   const getProduct = () => {
