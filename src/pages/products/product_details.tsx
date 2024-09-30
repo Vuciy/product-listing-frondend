@@ -7,6 +7,7 @@ import { IProductDetails } from "../../interfaces/IProductDetails";
 import ButtonComponent from "../../components/button";
 import { ShimmerContentBlock } from "shimmer-effects-react";
 import StartComponent from "../../components/star";
+import "./style.scss";
 
 export default function ProductDetailsPage() {
   const { product_id } = useParams();
@@ -36,7 +37,7 @@ export default function ProductDetailsPage() {
   };
 
   return (
-    <div>
+    <div id="product-details">
       <section className="py-8 bg-white md:py-16 dark:bg-gray-900 antialiased">
         <div className="flex flex-col gap-4 max-w-screen-xl px-4 mx-auto 2xl:px-0">
           <div>
@@ -88,7 +89,7 @@ export default function ProductDetailsPage() {
                         {[
                           ...Array(parseInt(`${product?.rating ?? 1}`)).keys(),
                         ].map((x) => (
-                          <StartComponent />
+                          <StartComponent key={x} />
                         ))}
                       </div>
                       <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
