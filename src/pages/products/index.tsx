@@ -49,7 +49,7 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
-          if (res.content?.lenght > 0) setProducts(res.content);
+          if (res.content?.length > 0) setProducts(res.content);
           else setMoreData(false);
         } else {
           alert(res.message);
