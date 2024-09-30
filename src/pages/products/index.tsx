@@ -20,7 +20,6 @@ export default function ProductsPage() {
 
   useEffect(() => {
     if (moreData && !isLoading) {
-      console.log("products data ===>", products);
       getProducts();
     }
   }, [search]);
@@ -50,7 +49,6 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
-          console.log("products here ===>", products);
           setProducts((prevData: IProduct[]) => [...products, ...res.content]);
         } else {
           alert(res.message);
@@ -67,7 +65,6 @@ export default function ProductsPage() {
           <SerachBarComponent
             {...{
               onSubmitHandler: async (value: string) => {
-                console.log("search here ===>", search);
                 setProducts([]);
                 setPage(1);
                 setSearch(value);
