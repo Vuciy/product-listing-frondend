@@ -15,14 +15,15 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [moreData, setMoreData] = useState(true);
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (moreData && !isLoading) {
-      console.log("products ===>", products);
+      console.log("products data ===>", products);
       getProducts();
     }
-  }, []);
+  }, [search]);
 
   const handleScroll = () => {
     const offsetHeight = document.documentElement.offsetHeight;
@@ -37,11 +38,11 @@ export default function ProductsPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const getProducts = (searchString?: string, pageNumber?: number) => {
-    const filter: IGetProductsRequest = { page: pageNumber ?? page };
+  const getProducts = () => {
+    const filter: IGetProductsRequest = { page };
 
-    if (searchString) {
-      filter.search = searchString;
+    if (search) {
+      filter.search = search;
     }
 
     setIsLoading(true);
@@ -49,8 +50,8 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
-          if (res.content?.length > 0) setProducts(res.content);
-          else setMoreData(false);
+          console.log("products here ===>", products);
+          setProducts((prevData: IProduct[]) => [...products, ...res.content]);
         } else {
           alert(res.message);
         }
@@ -66,8 +67,10 @@ export default function ProductsPage() {
           <SerachBarComponent
             {...{
               onSubmitHandler: async (value: string) => {
+                console.log("search here ===>", search);
                 setProducts([]);
-                getProducts(value, 1);
+                setPage(1);
+                setSearch(value);
               },
             }}
           />
