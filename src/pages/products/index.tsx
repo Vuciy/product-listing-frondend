@@ -49,7 +49,8 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
-          setProducts(res.content);
+          if (res.content?.lenght > 0) setProducts(res.content);
+          else setMoreData(false);
         } else {
           alert(res.message);
         }
@@ -103,12 +104,6 @@ export default function ProductsPage() {
                   </p>
                 </a>
               ))}
-          </div>
-        )}
-
-        {!isLoading && !moreData && (
-          <div>
-            <p className="text-center">No more data</p>
           </div>
         )}
 
