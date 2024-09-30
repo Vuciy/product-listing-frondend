@@ -29,7 +29,7 @@ export default function ButtonComponent({
     <button
       onClick={onClick}
       type={type}
-      className={`text-white  ${position} end-2.5 bottom-2.5 bg-${state} hover:bg-${state}/90 focus:ring-4 focus:outline-none focus:ring-${state}/30 font-medium rounded-lg text-sm px-4 py-2 dark:bg-${state}/60 dark:hover:bg-${state}/90 dark:focus:ring-${state}/95`}
+      className={`text-white  ${position} end-2.5 bottom-2.5 bg-primary hover:bg-${state}/90 focus:ring-4 focus:outline-none focus:ring-${state}/30 font-medium rounded-lg text-sm px-4 py-2 dark:bg-${state}/60 dark:hover:bg-${state}/90 dark:focus:ring-${state}/95`}
     >
       {title}
     </button>

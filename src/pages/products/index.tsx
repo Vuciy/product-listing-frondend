@@ -18,17 +18,14 @@ export default function ProductsPage() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    getProducts();
-  }, []);
-
-  /*useEffect(() => {
     if (moreData && !isLoading) {
+      console.log("products ===>", products);
       getProducts();
     }
-  }, [page]); */
+  }, []);
 
   const handleScroll = () => {
-    const offsetHeight = document.documentElement.offsetHeight / 2;
+    const offsetHeight = document.documentElement.offsetHeight;
     const scrollTop = window.innerHeight + document.documentElement.scrollTop;
     if (scrollTop >= offsetHeight) {
       setPage((prevPage) => prevPage + 1);
@@ -40,11 +37,11 @@ export default function ProductsPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const getProducts = (search?: string) => {
-    const filter: IGetProductsRequest = { page };
+  const getProducts = (searchString?: string, pageNumber?: number) => {
+    const filter: IGetProductsRequest = { page: pageNumber ?? page };
 
-    if (search) {
-      filter.search = search;
+    if (searchString) {
+      filter.search = searchString;
     }
 
     setIsLoading(true);
@@ -52,7 +49,7 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
-          setProducts((prevData: IProduct[]) => [...prevData, ...res.content]);
+          setProducts(res.content);
         } else {
           alert(res.message);
         }
@@ -67,11 +64,9 @@ export default function ProductsPage() {
         <div className="w-full">
           <SerachBarComponent
             {...{
-              onSubmitHandler: (value: string) => {
-                if (!value) return;
-                setPage(1);
+              onSubmitHandler: async (value: string) => {
                 setProducts([]);
-                getProducts(value);
+                getProducts(value, 1);
               },
             }}
           />

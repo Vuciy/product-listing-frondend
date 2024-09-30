@@ -60,6 +60,7 @@ export default function ProductDetailsPage() {
               thumbnailHeight={300}
               thumbnailWidth={300}
               contentDetailsPosition="center"
+              thumbnailBorder={1}
             />
           ) : (
             <div className="">
@@ -103,21 +104,25 @@ export default function ProductDetailsPage() {
                     </div>
                   </div>
 
-                  <div className="my-4">
-                    <ButtonComponent
-                      {...{
-                        title: "Add to favorites",
-                        onClick: () => {},
-                        state: "outlined",
-                      }}
-                    />
+                  <div className="flex gap-4 my-4">
+                    <div className="">
+                      <ButtonComponent
+                        {...{
+                          title: "Add to favorites",
+                          onClick: () => {},
+                          state: "outlined",
+                        }}
+                      />
+                    </div>
 
-                    <ButtonComponent
-                      {...{
-                        title: "Add to cart",
-                        onClick: () => {},
-                      }}
-                    />
+                    <div className="">
+                      <ButtonComponent
+                        {...{
+                          title: "Add to cart",
+                          onClick: () => {},
+                        }}
+                      />
+                    </div>
                   </div>
 
                   <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
