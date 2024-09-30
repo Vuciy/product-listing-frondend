@@ -22,13 +22,14 @@ export default function ProductsPage() {
     if (moreData && !isLoading) {
       getProducts();
     }
-  }, [search]);
+  }, [page, search]);
 
   const handleScroll = () => {
-    const offsetHeight = document.documentElement.offsetHeight;
-    const scrollTop = window.innerHeight + document.documentElement.scrollTop;
-    if (scrollTop >= offsetHeight) {
-      setPage((prevPage) => prevPage + 1);
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    if (scrollY + windowHeight >= documentHeight - 100) {
+      setPage(page + 1);
     }
   };
 
@@ -49,6 +50,7 @@ export default function ProductsPage() {
       .then((res: IResponse) => {
         setIsLoading(false);
         if (res.success) {
+          if (!search && res.content.length === 0) setMoreData(false);
           setProducts((prevData: IProduct[]) => [...products, ...res.content]);
         } else {
           alert(res.message);
@@ -77,7 +79,13 @@ export default function ProductsPage() {
         {isLoading ? (
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((x) => (
-              <ShimmerDiv mode="light" height={200} width={300} rounded={1} />
+              <ShimmerDiv
+                mode="light"
+                height={200}
+                width={300}
+                rounded={1}
+                key={x}
+              />
             ))}
           </div>
         ) : (
